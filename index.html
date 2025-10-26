@@ -874,6 +874,19 @@ document.getElementById('sendReportBtn').addEventListener('click', function() {
         </div>
       </div>
     </header>
+    <div>
+    <button id="install-button" style="display: none;">
+  Install Aplikasi (Offline)
+</button>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => console.log('SW terdaftar!', reg))
+        .catch(err => console.log('SW gagal daftar:', err));
+    });
+  }
+</script></div>
  <main class="container my-5">
     <!-- Feature Cards Grid -->
     <div class="row g-4">
