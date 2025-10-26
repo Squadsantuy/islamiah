@@ -1,4 +1,4 @@
-.<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
   <head>
     <meta charset="utf-8" />
@@ -1215,6 +1215,18 @@ document.getElementById('sendReportBtn').addEventListener('click', function() {
         .catch(err => console.log('SW gagal daftar:', err));
     });
   }
+</script>
+    <!-- Script Logika Tombol Instalasi Kustom -->
+  <script type='module'>/*<![CDATA[*/
+/*! Custom PWA install button by Fineshop Design */
+(({button:t,onInstall:n})=>{let i=null;var e=()=>{i&&(t.disabled=!0,i.prompt().then(e=>{"accepted"===e.outcome&&o()}).finally(()=>{t.disabled=!1}),i=null)},l=e=>{e.preventDefault(),i=e,t.hidden=!1};const o=()=>{t.hidden=!0,t.removeEventListener("click",e),window.removeEventListener("beforeinstallprompt",l)};t instanceof HTMLElement&&(t.hidden=!0,t.addEventListener("click",e),window.addEventListener("beforeinstallprompt",l));const d=e=>{t instanceof HTMLElement&&o(),"function"==typeof n&&n(e),window.removeEventListener("appinstalled",d)};window.addEventListener("appinstalled",d)})({
+  button: document.getElementById("app_install_button")||Object.assign(document.body.appendChild(document.createElement("button")),{hidden:!0,type:"button",className:"pwa-button",innerHTML:"<svg class='flash' viewBox='0 0 24 24'><path d='M17 19H7V5H17M17 1H7C5.89 1 5 1.89 5 3V21C5 22.1 5.9 23 7 23H17C18.1 23 19 22.1 19 21V3C19 1.89 18.1 1 17 1M10 9V15L14 12L10 9Z' stroke-miterlimit='10'></path></svg>"}),
+  onInstall(){
+    /* Anda bisa menambahkan aksi setelah instalasi di sini */
+    console.log('Aplikasi berhasil diinstal!');
+  }
+});
+/*]]>*/
 </script>
 </body>
 </html>
