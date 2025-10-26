@@ -1159,17 +1159,57 @@ document.getElementById('sendReportBtn').addEventListener('click', function() {
         </div>
       </div>
     </div>
-    <script>
-  // Cek apakah browser mendukung Service Worker
+<script>
+  let deferredPrompt; // Variabel untuk menyimpan event
+  const installButton = document.getElementById('install-button');
+
+  // 1. Tangkap event 'beforeinstallprompt'
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Cegah Chrome 67 dan sebelumnya menampilkan prompt otomatis
+    e.preventDefault();
+    
+    // Simpan event-nya agar bisa kita gunakan nanti
+    deferredPrompt = e;
+    
+    // Tampilkan tombol install kustom Anda
+    installButton.style.display = 'block';
+    console.log('PWA siap di-install');
+  });
+
+  // 2. Tambahkan listener klik pada tombol install
+  installButton.addEventListener('click', () => {
+    // Sembunyikan tombolnya lagi
+    installButton.style.display = 'none';
+    
+    // Tampilkan prompt instalasi yang sudah kita simpan
+    deferredPrompt.prompt();
+    
+    // Tunggu respons dari pengguna (install atau cancel)
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('Pengguna meng-install aplikasi');
+      } else {
+        console.log('Pengguna menolak meng-install');
+      }
+      // Kita tidak perlu event-nya lagi
+      deferredPrompt = null;
+    });
+  });
+
+  // 3. Cek apakah PWA sudah di-install
+  window.addEventListener('appinstalled', () => {
+    console.log('Aplikasi PWA berhasil di-install');
+    // Sembunyikan tombol install jika sudah ter-install
+    installButton.style.display = 'none';
+    deferredPrompt = null;
+  });
+
+  // 4. Kode pendaftaran Service Worker Anda (tetap ada)
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(registration => {
-          console.log('Service Worker berhasil didaftarkan.');
-        })
-        .catch(error => {
-          console.log('Pendaftaran Service Worker gagal:', error);
-        });
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => console.log('SW terdaftar!', reg))
+        .catch(err => console.log('SW gagal daftar:', err));
     });
   }
 </script>
