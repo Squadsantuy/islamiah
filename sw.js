@@ -10,8 +10,8 @@ const urlsToCacheOnInstall = [
   '/script.js',
   '/style.css',
   '/manifest.json',
-  '/img/icon-192.png',
-  '/img/icon-512.png'
+  '/img/islamiah192.png',
+  '/img/islamiah512.png'
   // Anda bisa tambahkan logo atau gambar penting lain di folder 'img/'
   // contoh: '/img/logo.png' 
 ];
