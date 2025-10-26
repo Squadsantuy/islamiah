@@ -8,12 +8,12 @@
   "description": "Aplikasi web sederhana berisi konten Islami.",
   "icons": [
     {
-      "src": "/img/icon-192.png",
+      "src": "/img/islamiah192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/img/icon-512.png",
+      "src": "/img/islamiah512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
