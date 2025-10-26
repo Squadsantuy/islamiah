@@ -778,103 +778,232 @@
 document.getElementById('sendReportBtn').addEventListener('click', function() {
   const form = document.getElementById('issueForm');
   if (form.checkValidity()) {
-    // Ambil nilai form
-    const problemName = document.getElementById('issueName').value;
-    const problemDesc = document.getElementById('issueDescription').value;
-    const problemLocation = document.getElementById('issueLocation').value;
-    
-    // Kirim via WhatsApp (contoh)
-    const whatsappNumber = "+628984805964";
-    const message = `*Laporan Masalah*%0A%0ANama masalah: ${problemName}%0ADeskripsi: ${problemDesc}%0ALetak masalah: ${problemLocation}`;
-    
-    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
-    
-    // Tutup modal
-    bootstrap.Modal.getInstance(document.getElementById('reportIssueModal')).hide();
-  } else {
-    form.reportValidity();
+</head>
+  <body>
+    <button class="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="overlay"></div>
+
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h3 class="sidebar-title">ngaji islamiah</h3>
+      </div>
+      <ul class="sidebar-menu list-unstyled">
+        <li>
+          <a href="#"> <i class="fas fa-home"></i> Beranda </a>
+        </li>
+        <li>
+          <a href="surat/index.html">
+            <i class="fas fa-book-quran"></i> Daftar Surat
+          </a>
+        </li>
+        <li>
+          <a href="juz-amma/index.html">
+            <i class="fas fa-star"></i> Juz Amma
+          </a>
+        </li>
+        <li>
+          <a href="doa-doa/index.html">
+            <i class="fas fa-hands-praying"></i> Doa Harian
+          </a>
+        </li>
+        <li>
+          <a href="asmaul-husna/index.html">
+            <i class="fas fa-pray"></i> Asmaul Husna
+          </a>
+        </li>
+        <li>
+          <a href="profil.html">
+            <i class="fas fa-user-tie"></i> Profile Pengembang
+          </a>
+        </li>
+        <li>
+          <a href="#" id="reportIssueBtn">
+            <i class="fas fa-bug"></i> Laporkan Masalah
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <p>Islamiah v1.0.0</p>
+        <p class="arabic-font" style="font-size: 1.2rem; margin-top: 5px">
+          وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ
+        </p>
+      </div>
+
+      <div class="sidebar-pattern"></div>
+    </div>
+
+<div class="modal fade" id="reportIssueModal" tabindex="-1" aria-hidden="true" style="z-index: 1060;">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+        <h5 class="modal-title fw-bold">Laporkan Masalah</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="issueForm">
+          <div class="mb-3">
+            <label for="issueName" class="form-label fw-semibold">Nama Masalah <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="issueName" placeholder="Contoh: Menu tidak responsive" required>
+          </div>
+          
+          <div class="mb-3">
+            <label for="issueDescription" class="form-label fw-semibold">Deskripsi Masalah <span class="text-danger">*</span></label>
+            <textarea class="form-control" id="issueDescription" rows="3" 
+                      placeholder="Jelaskan masalah yang terjadi secara detail" required></textarea>
+          </div>
+          
+          <div class="mb-3">
+            <label for="issueLocation" class="form-label fw-semibold">Letak Masalah <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="issueLocation" 
+                   placeholder="Contoh: Sidebar kiri, Halaman Dashboard" required>
+          </div>
+          
+          <div class="mb-3">
+            <label for="issueScreenshot" class="form-label fw-semibold">Screenshot (Opsional)</label>
+            <input class="form-control" type="file" id="issueScreenshot" accept="image/*">
+            <div class="form-text">Format: JPG, PNG (Maks. 5MB)</div>
+          </div>
+          
+          <div class="alert alert-info mb-0">
+            <i class="bi bi-info-circle me-2"></i>
+            Laporan akan dikirim ke tim teknis
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg me-1"></i> Tutup
+        </button>
+        <button type="submit" class="btn btn-primary" id="sendReportBtn">
+          <i class="bi bi-send me-1"></i> Kirim
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Pastikan modal muncul di atas sidebar */
+  .modal {
+    z-index: 1060 !important; /* Lebih tinggi dari z-index sidebar */
   }
+  
+  /* ... (style modal Anda yang lain) ... */
+  @media (min-width: 576px) {
+    .modal-dialog {
+      max-width: 500px;
+    }
+  }
+  
+  .sidebar {
+    z-index: 1040 !important; /* Pastikan lebih rendah dari modal */
+  }
+
+  /* CSS BARU UNTUK TOMBOL INSTALL PWA 
+  */
+  .logo-container {
+    display: flex; /* Membuat "ISLAMIAH" dan tombol install sejajar */
+    align-items: center; /* Membuatnya rapi secara vertikal */
+  }
+
+  .install-pwa-btn {
+    background: transparent;
+    border: none;
+    color: white; /* Sesuaikan warnanya jika teks header Anda bukan putih */
+    font-size: 1.3rem; /* Sesuaikan ukurannya */
+    cursor: pointer;
+    margin-left: 15px; /* Memberi jarak dari tulisan ISLAMIAH */
+    padding: 5px;
+  }
+
+  .install-pwa-btn:hover {
+    opacity: 0.8;
+  }
+</style>
+<script>
+// Script untuk menangani pengiriman form
+document.getElementById('sendReportBtn').addEventListener('click', function() {
+  // ... (kode Anda yang sudah ada) ...
 });
 </script>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Show modal when report issue is clicked
-        document
-          .getElementById("reportIssueBtn")
-          .addEventListener("click", function (e) {
-            e.preventDefault();
-            var modal = new bootstrap.Modal(
-              document.getElementById("reportIssueModal")
-            );
-            modal.show();
-          });
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // ... (kode Anda yang sudah ada untuk modal) ...
+  });
+</script>
 
-        // Handle form submission
-        document
-          .getElementById("sendReportBtn")
-          .addEventListener("click", function () {
-            const name = document.getElementById("issueName").value;
-            const description =
-              document.getElementById("issueDescription").value;
-            const location = document.getElementById("issueLocation").value;
-            const fileInput = document.getElementById("issueScreenshot");
+<script>
+  let deferredPrompt; 
+  const installButton = document.getElementById('install-button');
 
-            if (!name || !description || !location) {
-              alert("Harap isi semua field yang wajib diisi!");
-              return;
-            }
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Cegah prompt otomatis
+    e.preventDefault();
+    // Simpan event-nya
+    deferredPrompt = e;
+    // Tampilkan tombol install Anda
+    if (installButton) {
+      installButton.style.display = 'block';
+      console.log('PWA siap di-install.');
+    }
+  });
 
-            // Format WhatsApp message
-            let message =
-              `*Laporan Masalah Islamiah*%0A%0A` +
-              `*Nama Masalah:* ${name}%0A` +
-              `*Deskripsi:* ${description}%0A` +
-              `*Letak Masalah:* ${location}%0A` +
-              `*Versi Aplikasi:* 1.0.0%0A` +
-              `*Tanggal:* ${new Date().toLocaleString()}`;
-
-            if (fileInput.files.length > 0) {
-              message +=
-                "%0A%0A*Catatan:* Terdapat screenshot yang dilampirkan";
-            }
-
-            // Open WhatsApp with the message
-            window.open(
-              `https://wa.me/628984805964?text=${message}`,
-              "_blank"
-            );
-
-            // Close the modal
-            var modal = bootstrap.Modal.getInstance(
-              document.getElementById("reportIssueModal")
-            );
-            modal.hide();
-
-            // Reset form
-            document.getElementById("issueForm").reset();
-
-            // Show thank you popup
-            var thankYouModal = new bootstrap.Modal(
-              document.getElementById("thankYouModal")
-            );
-            thankYouModal.show();
-          });
+  if (installButton) {
+    installButton.addEventListener('click', () => {
+      // Sembunyikan tombol setelah di-klik
+      installButton.style.display = 'none';
+      // Tampilkan prompt install
+      deferredPrompt.prompt();
+      // Tunggu respons pengguna
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('Pengguna meng-install aplikasi');
+        } else {
+          console.log('Pengguna menolak meng-install');
+        }
+        deferredPrompt = null;
       });
-    </script>
+    });
+  }
 
-    <!-- Header with Basmallah -->
-    <header class="main-header">
+  // Jika aplikasi sudah di-install, sembunyikan tombolnya
+  window.addEventListener('appinstalled', () => {
+    console.log('Aplikasi PWA berhasil di-install');
+    if (installButton) {
+      installButton.style.display = 'none';
+    }
+    deferredPrompt = null;
+  });
+  
+  // Pendaftaran Service Worker (wajib ada)
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      // Pastikan path ke sw.js sudah benar (sesuai jawaban saya sebelumnya)
+      navigator.serviceWorker.register('sw.js') 
+        .then(reg => console.log('SW terdaftar!', reg))
+        .catch(err => console.log('SW gagal daftar:', err));
+    });
+  }
+</script>
+<header class="main-header">
       <div class="container">
         <div class="logo-container">
           <div class="logo"><span>ISLAMIAH</span></div>
+          
+          <button id="install-button" class="install-pwa-btn" style="display: none;" title="Install Aplikasi">
+            <i class="fas fa-download"></i> </button>
+          
         </div>
         <div class="basmallah arabic-font">
           بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
         </div>
       </div>
     </header>
-
  <main class="container my-5">
     <!-- Feature Cards Grid -->
     <div class="row g-4">
