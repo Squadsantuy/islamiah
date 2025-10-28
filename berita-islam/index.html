@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#006400"/>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/img/islamiah192.png">
+    <title>islamiah - Berita</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    
+    <style>
+      @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css");
+
+      :root {
+        --primary-color: #28a745; 
+        --accent-color: #218838; 
+        --circle-green: #2e7d32;
+        --circle-border: #FFD700;
+        --font-arab-color: rgb(3, 3, 91);
+        --berita-bg: #f0f8ff; /* Warna Biru Muda Terang (AliceBlue) */
+        --berita-bg-hover: #e6f3ff; /* Biru muda sedikit lebih gelap untuk hover */
+        --berita-border: #dbe9f5; /* Warna border biru muda */
+      }
+
+      body{
+          background-color: rgb(249, 249, 249);
+          padding-top: 70px;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      }
+      
+      .navbar {
+        background-color: white !important; 
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+
+      h1 .text-success {
+        color: var(--primary-color) !important; 
+      }
+      
+      .toogle-back{
+          color: black;
+          transition: .5s;
+      }
+
+      .toogle-back:hover{
+          color: rgb(4, 100, 62);
+          cursor: pointer;
+          transition: all .6s;
+      }
+
+      /* Style untuk Judul Berita */
+      .font-arab{
+          font-family: "Times New Roman", Times, serif; 
+          color: var(--font-arab-color);
+          font-weight: 600;
+          line-height: 1.4;
+          font-size: 1.5rem; 
+          text-align: right; 
+          width: 100%;
+      }
+
+      /* Style untuk Latar Item Berita (Biru Muda) */
+      .nama-surat{
+          background-color: var(--berita-bg); /* Menggunakan variabel biru muda */
+          transition: background-color 0.3s;
+          border: 1px solid var(--berita-border); /* Border biru muda */
+          text-decoration: none;
+      }
+      
+      .nama-surat:hover{
+          cursor: pointer;
+          background-color: var(--berita-bg-hover); /* Warna hover biru muda */
+      }
+
+      /* Ayat Number Circle (Info Situs) */
+      .circle-ayat-number {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 36px;
+          height: 36px;
+          background-color: var(--circle-green); 
+          color: white;
+          border-radius: 50%;
+          font-size: 1.1rem; 
+          font-weight: 500;
+          margin: 0 auto 4px auto;
+          border: 2px solid var(--circle-border); 
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+
+      /* Tafsir Text (Nama Situs) */
+      .tafsir-label {
+          font-size: 0.7rem;
+          color: #555; 
+          text-align: center;
+          line-height: 1.2;
+          background-color: #f0f0f0; 
+          padding: 2px 6px;
+          border-radius: 4px;
+          display: inline-block;
+          margin-top: 2px;
+          max-width: 80px; 
+          white-space: nowrap; 
+          overflow: hidden;
+          text-overflow: ellipsis; 
+      }
+
+      /* Center the number and tafsir label */
+      .ayat-number-wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          width: 80px; 
+      }
+      
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+          .font-arab {
+              font-size: 1.1rem !important; 
+              padding: 0;
+          }
+          .nama-surat .row {
+            --bs-gutter-x: 0.75rem; 
+          }
+      }
+    </style>
+    <script 
+      async 
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7183187126446600" 
+      crossorigin="anonymous">
+    </script>
+  </head>
+  <body>
+    
+    <nav class="navbar bg-white shadow fixed-top mb-5">
+      <div class="container-fluid">
+        <div class="col-3">
+          <a href="../index.html" class="ms-2">
+            <i class="bi bi-arrow-left fs-3 toogle-back p-1 rounded fw-bold"></i>
+          </a>
+        </div>
+        
+        <div class="col-6 text-center">
+          <h1><span class="text-success">ISLAMIAH</span>Berita<span></span></h1>
+        </div>
+        
+        <div class="col-3">
+          </div>
+      </div>
+    </nav>
+
+    <div class="container my-4">
+      <div class="row justify-content-center">
+        <div class="col-md-9">
+          
+          <div id="berita-gabungan-container">
+            
+            <div class="card shadow-sm border-0">
+              <div class="card-body text-center p-4">
+                <div class="spinner-border text-success" role="status" 
+                     style="width: 2rem; height: 2rem;">
+                  <span class="visually-hidden">Memuat...</span>
+                </div>
+                <p class="mt-3 mb-0 text-muted">
+                  Sedang mengambil 10 berita terbaru...
+                </p>
+              </div>
+            </div>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.2.min.js"
+      integrity="sha384-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      // Cek Service Worker (Bawaan Anda)
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+              console.log('Service Worker berhasil didaftarkan.');
+            })
+            .catch(error => {
+              console.log('Pendaftaran Service Worker gagal:', error);
+            });
+        });
+      }
+    </script>
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        
+        // =================================================================
+        // 
+        //           ### EDIT DAFTAR SITUS DI BAWAH INI ###
+        // Ganti 'nama_situs', 'url_rss', dan tambahkan 'initial' (1 huruf)
+        //
+        // =================================================================
+        const daftarSitus = [
+          { 
+            nama_situs: 'Rumaysho', 
+            url_rss: 'https://rumaysho.com/feed',
+            initial: 'R' // Tambahkan inisial
+          },
+          { 
+            nama_situs: 'Muslim.or.id', 
+            url_rss: 'https://muslim.or.id/feed',
+            initial: 'M'
+          },
+          { 
+            nama_situs: 'Khotbah Jumat', 
+            url_rss: 'https://khotbahjumat.com/feed',
+            initial: 'K' 
+          },
+          { 
+            nama_situs: 'Muslimah.or.id', 
+            url_rss: 'https://muslimah.or.id/feed',
+            initial: 'M'
+          },
+          { 
+            nama_situs: 'Mubadalah', 
+            url_rss: 'https://mubadalah.id/feed',
+            initial: 'M'
+          }
+        ];
+        // =================================A================================
+        //              ### AKHIR BAGIAN EDIT ###
+        // =================================================================
+    
+        const container = document.getElementById('berita-gabungan-container');
+    
+        // --- Fungsi untuk mengambil satu RSS feed ---
+        async function ambilSatuFeed(situs) {
+          const api_url = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(situs.url_rss)}`;
+          try {
+            const response = await fetch(api_url);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            
+            const data = await response.json();
+            if (data.status === 'ok') {
+              // Ambil 2 item pertama
+              const items = data.items.slice(0, 2);
+              
+              // Tambahkan info situs ke setiap item
+              items.forEach(item => {
+                item.situs_nama = situs.nama_situs;
+                item.situs_initial = situs.initial;
+              });
+              
+              return items; // Kembalikan array berisi 2 item
+            } else {
+              throw new Error(`rss2json error: ${data.message}`);
+            }
+          } catch (error) {
+            console.error(`Gagal mengambil feed dari ${situs.nama_situs}:`, error.message);
+            return []; // Kembalikan array kosong jika gagal
+          }
+        }
+    
+        // --- Fungsi utama untuk menjalankan semua pengambilan data ---
+        async function muatSemuaBerita() {
+          // 1. Ambil semua feed secara paralel
+          const promises = daftarSitus.map(situs => ambilSatuFeed(situs));
+          const hasilPerSitus = await Promise.all(promises);
+
+          // 2. Gabungkan semua artikel (dari array di dalam array) menjadi satu array
+          let semuaArtikel = [];
+          hasilPerSitus.forEach(arrayArtikel => {
+            semuaArtikel = semuaArtikel.concat(arrayArtikel);
+          });
+          
+          // 3. Urutkan semua artikel berdasarkan tanggal publish (terbaru dulu)
+          semuaArtikel.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+    
+          // 4. Kosongkan kontainer loading
+          container.innerHTML = ''; 
+
+          // 5. Tampilkan setiap artikel
+          if (semuaArtikel.length > 0) {
+            semuaArtikel.forEach(artikel => {
+              container.innerHTML += buatHtmlArtikel(artikel);
+            });
+          } else {
+            // Tampilkan pesan jika gagal total
+            container.innerHTML = `
+              <div class="alert alert-warning" role="alert">
+                Gagal memuat berita dari semua sumber. Silakan coba lagi nanti.
+              </div>
+            `;
+          }
+        }
+    
+        // --- Fungsi helper untuk mengubah data 1 ARTIKEL menjadi HTML (VERSI TANPA GAMBAR) ---
+        function buatHtmlArtikel(artikel) {
+          if (!artikel) return '';
+
+          // Buat HTML lengkap untuk satu item
+          return `
+          <a href="${artikel.link}" target="_blank" rel="noopener noreferrer" 
+             class="nama-surat d-block text-decoration-none p-3 mb-3 shadow-sm rounded">
+              <div class="row g-2 align-items-center">
+                  
+                  <div class="col-auto">
+                      <div class="ayat-number-wrapper">
+                          <div class="circle-ayat-number">${artikel.situs_initial}</div>
+                          <span class="tafsir-label" title="${artikel.situs_nama}">
+                            ${artikel.situs_nama}
+                          </span>
+                      </div>
+                  </div>
+                  
+                  <div class="col">
+                      <h5 class="font-arab mb-0">
+                          ${artikel.title}
+                      </h5>
+                  </div>
+                  
+              </div>
+          </a>
+          `;
+        }
+    
+        // --- Jalankan fungsi utama ---
+        muatSemuaBerita();
+    
+      });
+    </script>
+
+  </body>
+</html>
