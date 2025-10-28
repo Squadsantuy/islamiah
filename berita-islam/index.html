@@ -209,45 +209,22 @@
         }
     
         // --- Fungsi helper untuk mengubah data JSON menjadi HTML ---
-            // =================================================================
-    // GANTI FUNGSI LAMA 'buatHtmlUntukSitus' DENGAN VERSI BARU DI BAWAH INI
-    // =================================================================
+ function buatHtmlUntukSitus(situsData) {
+          // Ambil 2 artikel
+          const artikel1 = situsData.items[0];
+          const artikel2 = situsData.items.length > 1 ? situsData.items[1] : null;
     
-    // --- Fungsi helper untuk mengubah data JSON menjadi HTML (VERSI BARU DENGAN GAMBAR) ---
-    function buatHtmlUntukSitus(situsData) {
-      // Ambil 2 artikel
-      const artikel1 = situsData.items[0];
-      const artikel2 = situsData.items.length > 1 ? situsData.items[1] : null;
-
-      // --- Fungsi kecil untuk membuat satu baris artikel ---
-      function buatHtmlArtikel(artikel) {
-        if (!artikel) return '';
-
-        let htmlGambar = '';
-        
-        // Cek apakah ada gambar thumbnail. 
-        // rss2json mengembalikan string kosong "" jika tidak ada.
-        if (artikel.thumbnail && artikel.thumbnail !== "") {
-          // Jika ADA gambar
-          htmlGambar = `
-            <img src="${artikel.thumbnail}" 
-                 class="img-fluid rounded me-3" 
-                 alt="Gambar Berita" 
-                 style="width: 100px; height: 75px; object-fit: cover;">
-          `;
-        } else {
-          // Jika TIDAK ADA gambar, tampilkan ikon placeholder
-          htmlGambar = `
-            <div class="text-center text-success" 
-                 style="width: 100px; height: 75px; font-size: 2.5rem; 
-                        display: flex; align-items: center; justify-content: center; 
-                        background-color: #f8f9fa; border: 1px solid #eee; 
-                        border-radius: .25rem; margin-right: 1rem; flex-shrink: 0;">
-              <i class="bi bi-file-earmark-text"></i>
-            </div>
-          `;
-        }
-
+          // Fungsi kecil untuk membuat satu baris artikel
+          function buatHtmlArtikel(artikel) {
+            if (!artikel) return '';
+            return `
+              <a href="${artikel.link}" target="_blank" rel="noopener noreferrer" 
+                 class="list-group-item list-group-item-action">
+                <i class="bi bi-file-earmark-text me-2 text-success"></i>
+                ${artikel.title}
+              </a>
+            `;
+          }
         // Gabungkan gambar dan judul
         return `
           <a href="${artikel.link}" target="_blank" rel="noopener noreferrer" 
@@ -262,32 +239,6 @@
         `;
       }
       // --- Akhir fungsi kecil ---
-
-      // Gabungkan menjadi satu card Bootstrap
-      return `
-        <div class="card shadow-sm border-0 mb-4">
-          <div class="card-header bg-white border-bottom-0 pt-3">
-            <h6 class="mb-0">
-              Dari: 
-              <a href="${situsData.feed_info.link}" target="_blank" rel="noopener noreferrer" 
-                 class="text-decoration-none text-success fw-bold">
-                ${situsData.nama_situs}
-              </a>
-            </h6>
-          </div>
-          <div class="list-group list-group-flush">
-            ${buatHtmlArtikel(artikel1)}
-            ${buatHtmlArtikel(artikel2)}
-          </div>
-        </div>
-      `;
-    }
-    
-    // =================================================================
-    // AKHIR BLOK PENGGANTI
-    // =================================================================
-
-    
           // Gabungkan menjadi satu card Bootstrap
           return `
             <div class="card shadow-sm border-0 mb-4">
