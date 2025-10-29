@@ -9,7 +9,7 @@ $(document).ready(function(){
 const showAllDoa = d => {
     let doa = ``
     $.ajax({
-        url: 'doa.json',
+        url: 'tahlil.json',
         success: response => {
             response.forEach(d => {
                 doa += listDoa(d)
