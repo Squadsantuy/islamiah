@@ -1,1 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Doa Tahlil - Quran-id | Aplikasi Baca Al-Quran praktis</title>
+    <meta name="description" content="Kumpulan doa tahlil dilengkapi dengan arti.">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="author" content="Quran-id">
+    <meta property="og:title" content="Doa Tahlil - Quran-id | Aplikasi Baca Al-Quran praktis">
+    <meta property="og:description" content="Kumpulan doa tahlil dilengkapi dengan arti.">
+    <meta property="og:image" content="/meta-image.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap');
+        .font-arabic {
+            font-family: 'Scheherazade New', serif;
+        }
+        /* GANTI: Warna latar body utama */
+        body { 
+            background-color: #f0fdf4; /* Tailwind 'green-50' */
+        }
+    </style>
+</head>
+<body class="bg-green-50">
+
+    <div id="app">
+        <div class="container">
+            
+            <div>
+                <h3 class="bg-green-600 py-9 mx-4 px-6 rounded-md m-4 text-white font-semibold shadow-md">Doa Tahlil terjemahan Bahasa Indonesia</h3>
+                <br>
+                <hr class="border-green-200">
+                
+                <p class="text-left m-4 font-medium text-green-900">List Doa Tahlil :</p>
+
+                <div v-for="tahlil in doatahlil" :key="tahlil.id" class="bg-white h-auto text-left w-11/12 py-5 px-4 m-4 rounded-xl border border-green-200 shadow-sm">
+                    
+                        <p @click="clickShow(tahlil.id)" class="max-w-lg text-lg items-center text-green-800 font-semibold inset-x-0 flex justify-between cursor-pointer">
+                            {{tahlil.title}} 
+                            <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4 flex-shrink-0 text-green-700" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </p>
+                    
+                        <ul v-show="showTahlil[tahlil.id]" class="pb-3 text-gray-700 pt-3">
+                            <li>
+                                <p class="max-w-lg rounded-md text-gray-900 py-3 px-4 block whitespace-no-wrap text-right text-3xl leading-relaxed font-arabic tracking-wide">{{tahlil.arabic}}</p>
+                            </li>
+                            <li class="max-w-lg text-left text-lg whitespace-no-wrap text-gray-700 pr-3 pl-3 py-2 rounded-md">
+                                <strong>Artinya:</strong> <i>{{tahlil.translation}}</i>
+                            </li>
+                        </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                showTahlil: {},
+                doatahlil: []
+            },
+            created() {
+                const self = this;
+                fetch('tahlil.json')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Gagal memuat tahlil.json');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        self.doatahlil = data.data; // Ini sudah benar sesuai JSON Anda
+                    })
+                    .catch(error => {
+                        console.error('Error fetching tahlil.json:', error);
+                    });
+            },
+            methods: {
+                clickShow(id) {
+                    if (this.showTahlil[id]) {
+                        this.$set(this.showTahlil, id, false);
+                    } else {
+                        this.$set(this.showTahlil, id, true);
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
 
