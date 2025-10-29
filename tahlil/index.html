@@ -71,7 +71,7 @@
             },
             created() {
                 const self = this;
-                fetch('tahlil.json')
+                fetch('./tahlil.json')
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Gagal memuat tahlil.json');
